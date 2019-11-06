@@ -12,6 +12,7 @@ using Microsoft.Extensions.Hosting;
 using WebApplication1.Data;
 using WebApplication1.Data.Interfaces;
 using WebApplication1.Data.Mocks;
+using WebApplication1.Data.Repository;
 
 namespace WebApplication1 {
     public class Startup {
@@ -24,10 +25,12 @@ namespace WebApplication1 {
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services) {
             services.AddDbContext<AppDBContent>(options => options.UseSqlServer(_confString.GetConnectionString("DefaultConnection")));
-            services.AddTransient<IAllCars, MockCars>(); // Позволяет соединить интерфейс и класс, который реализует этот интерфейс
-            services.AddTransient<ICarsCategory, MockCategory>();
+            services.AddTransient<IAllCars, CarRepository>(); // Позволяет соединить интерфейс и класс, который реализует этот интерфейс
+            services.AddTransient<ICarsCategory, CategoryRepository>();
            // services.AddMvc(); // Подключение MVC
-            services.AddMvc();
+            //services.AddMvc();
+            services.AddMvc(options => options.EnableEndpointRouting = false);
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -35,7 +38,18 @@ namespace WebApplication1 {
             app.UseDeveloperExceptionPage();
             app.UseStatusCodePages();
             app.UseStaticFiles();
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute(
+                name: "default",
+                template: "{controller=CarsController}/{action=List}/");
+            });
             //app.UseMvcWithDefaultRoute();
+
+            using (var scope = app.ApplicationServices.CreateScope()) {
+                AppDBContent content = scope.ServiceProvider.GetRequiredService<AppDBContent>();
+                DbObjects.Initial(content);
+            }
         }
     }
 }

@@ -7,7 +7,7 @@
                 <img class="img-thumbnail" src="@car.Img" alt="@car.Name"/>
                 <h2>@car.Name</h2>
                 <p>@car.ShortDesc</p>
-                <p>Цена: @car.Price.ToString("c")</p>
+                <p>Цена: @car.Price.ToString("c", System.Globalization.CultureInfo.CreateSpecificCulture("en-us"));</p>
                 <p><a class="btn btn-warning" href="#">Подробнее</a></p>
             </div>
         }

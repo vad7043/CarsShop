@@ -11,6 +11,6 @@ namespace WebApplication1.Data {
 
         }
         public DbSet<Car> Car { get; set; }
-        public DbSet<Car> Category { get; set; }
+        public DbSet<Category> Category { get; set; }
     }
 }

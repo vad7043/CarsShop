@@ -14,7 +14,7 @@ namespace WebApplication1.Data.Interfaces {
         /// </summary>
         IEnumerable<Car> Cars { get;  }
         ///Получение списка избранных машин
-        IEnumerable<Car> GetFavCars { get; set; }
+        IEnumerable<Car> GetFavCars { get; }
         /// <summary>
         /// Получение авто по Id
         /// </summary>
