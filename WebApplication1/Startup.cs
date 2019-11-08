@@ -43,12 +43,7 @@ namespace WebApplication1 {
             app.UseStatusCodePages();
             app.UseStaticFiles();
             app.UseSession();
-            app.UseMvc(routes =>
-            {
-                routes.MapRoute(
-                name: "default",
-                template: "{controller=CarsController}/{action=List}/");
-            });
+            app.UseMvcWithDefaultRoute();
             //app.UseMvcWithDefaultRoute();
 
             using (var scope = app.ApplicationServices.CreateScope()) {
