@@ -1,0 +1,12 @@
+﻿@model ShopCartVewModel
+<div class="container">
+    @foreach (var elem in Model.ShopCart.ListShopItems) {
+    <div class="alert alert-warning mt-3">
+        <b>Автомобиль: </b>@elem.Car.Name<br>
+        <b>Цена: </b> @elem.Car.Price.ToString("c", System.Globalization.CultureInfo.CreateSpecificCulture("en-us"));
+    </div>
+    }
+    <hr />
+    <div class="btn btn-danger" asp-controller ="Order">Оплатить</div>
+</div>
+

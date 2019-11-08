@@ -11,7 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using WebApplication1.Data;
 using WebApplication1.Data.Interfaces;
-using WebApplication1.Data.Mocks;
+using WebApplication1.Data.Models;
 using WebApplication1.Data.Repository;
 
 namespace WebApplication1 {
@@ -30,6 +30,10 @@ namespace WebApplication1 {
            // services.AddMvc(); // Подключение MVC
             //services.AddMvc();
             services.AddMvc(options => options.EnableEndpointRouting = false);
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddScoped(p => ShopCart.GetCart(p)); // индивидуальная корзина
+            services.AddMemoryCache();
+            services.AddSession();
 
         }
 
@@ -38,6 +42,7 @@ namespace WebApplication1 {
             app.UseDeveloperExceptionPage();
             app.UseStatusCodePages();
             app.UseStaticFiles();
+            app.UseSession();
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
