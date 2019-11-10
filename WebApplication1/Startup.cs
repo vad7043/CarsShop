@@ -27,6 +27,7 @@ namespace WebApplication1 {
             services.AddDbContext<AppDBContent>(options => options.UseSqlServer(_confString.GetConnectionString("DefaultConnection")));
             services.AddTransient<IAllCars, CarRepository>(); // Позволяет соединить интерфейс и класс, который реализует этот интерфейс
             services.AddTransient<ICarsCategory, CategoryRepository>();
+            services.AddTransient<IAllOrders, OrdersRepository>();
            // services.AddMvc(); // Подключение MVC
             //services.AddMvc();
             services.AddMvc(options => options.EnableEndpointRouting = false);
@@ -43,8 +44,11 @@ namespace WebApplication1 {
             app.UseStatusCodePages();
             app.UseStaticFiles();
             app.UseSession();
-            app.UseMvcWithDefaultRoute();
             //app.UseMvcWithDefaultRoute();
+            app.UseMvc(routes => {
+                routes.MapRoute(name: "default", template: "{controller=Home}/{action=Index}/{id?}");
+                routes.MapRoute(name: "categoryFilter", template: "Car/{action}/{category?}", defaults: new { Controller = "Car", action = "List" });
+            });
 
             using (var scope = app.ApplicationServices.CreateScope()) {
                 AppDBContent content = scope.ServiceProvider.GetRequiredService<AppDBContent>();

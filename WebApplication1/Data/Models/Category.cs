@@ -20,6 +20,6 @@ namespace WebApplication1.Data.Models {
         /// <summary>
         /// Список автомобилей в данной категории
         /// </summary>
-        public List<Car> Cars { get; set; }
+        public List<Car> Cars { get;  }
     }
 }

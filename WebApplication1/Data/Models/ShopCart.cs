@@ -7,6 +7,9 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace WebApplication1.Data.Models {
+    /// <summary>
+    /// Класс корзины на сайте
+    /// </summary>
     public class ShopCart {
         private readonly AppDBContent AppDBContent;
         public ShopCart(AppDBContent appDBContent) {
