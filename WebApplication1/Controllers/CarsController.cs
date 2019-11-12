@@ -17,7 +17,6 @@ namespace WebApplication1.Controllers {
         [Route("Cars/List")]
         [Route("Cars/List/{category}")]
         public ViewResult List(string category) {
-            string _category = category;
             IEnumerable<Car> cars = null;
             string currCategory = "";
             if (string.IsNullOrEmpty(category)) {
@@ -30,7 +29,6 @@ namespace WebApplication1.Controllers {
                 cars = _allCars.Cars.Where(o => o.CategoryId.Equals(2)).OrderBy(o=> o.Id);
                 currCategory = "Автомобили с ДВС";
             }
-            currCategory = _category;
 
             var carObj = new CarsListViewModel {
                 AllCars = cars,
@@ -41,5 +39,6 @@ namespace WebApplication1.Controllers {
             ViewBag.Title = "Страница с автомобилями";
             return View(carObj);
         }
+
     }
 }

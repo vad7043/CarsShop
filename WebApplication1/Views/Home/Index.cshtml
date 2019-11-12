@@ -1,10 +1,23 @@
 ﻿@model HomeViewModel
 
-<h1>Лучшие автомобили</h1>
-<div class="row mt-5 mb-2">
-    @{
-        foreach (Car car in Model.FavCars) {
-            @Html.Partial("AllCars", car)
-        }
-    }
-</div>
+    <div class="row">
+
+        <div class="col-sm-6">
+
+            <h1 id="text"></h1>
+            <form class="form-horizontal mt-3" method="post">
+                <p>Цена</p>
+                <p>ОТ<input type="text" name="from" id="from" /></p>
+                <p>ДО<input type="text" name="to" id="to" /></p>
+                <button class="btn btn-success" type="submit">Показать</button>
+            </form>
+        </div>
+
+        <div class="row mt-5 mb-2">
+            @{
+                foreach (Car car in Model.FavCars) {
+                    @Html.Partial("AllCars", car);
+                }
+            }
+        </div>
+    </div>

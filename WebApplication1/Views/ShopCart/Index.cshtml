@@ -1,12 +1,18 @@
 ﻿@model ShopCartVewModel
-<div class="container">
-    @foreach (var elem in Model.ShopCart.ListShopItems) {
-    <div class="alert alert-warning mt-3">
-        <b>Автомобиль: </b>@elem.Car.Name<br>
-        <b>Цена: </b> @elem.Car.Price.ToString("c", System.Globalization.CultureInfo.CreateSpecificCulture("en-us"));
+@if (Model.ShopCart.ListShopItems.Count > 0) {
+    <div class="container">
+        @foreach (var elem in Model.ShopCart.ListShopItems) {
+            <div class="alert alert-warning mt-3">
+                <b>Автомобиль: </b>@elem.Car.Name<br>
+                <b>Цена: </b> @elem.Car.Price.ToString("c", System.Globalization.CultureInfo.CreateSpecificCulture("en-us"));
+            </div>
+        }
+        <hr />
+        <a class="btn btn-danger" asp-controller="Order" asp-action="CheckOut">Оплатить</a>
     </div>
-    }
-    <hr />
-    <a class="btn btn-danger" asp-controller ="Order" asp-action="CheckOut">Оплатить</a>
-</div>
+}
+else {
+    <p>В корзине нет товаров</p>
+}
+
 
